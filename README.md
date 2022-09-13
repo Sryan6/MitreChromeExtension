@@ -1,1 +1,3 @@
 # MitreChromeExtension
+
+npm init -y
