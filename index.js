@@ -1,3 +1,4 @@
+//global chrome = window.browser || window.chrome;
 
 const PORT = 8000
 const axios = require('axios')
@@ -14,11 +15,21 @@ app.get('/', function (req, res) {
 })
 
 app.get('/results', (req, res) => {
+//    chrome.tabs.query({
+//        active: true,
+//        lastFocusedWindow: true
+//    }, function(tabs) {
+        // and use that tab to fill in out title and url
+//        var tab = tabs[0];
+//        console.log(tab.url);
+//        alert(tab.url);
+//    });
+
     axios(url)
         .then(response => {
             const html = response.data
-            console.log("html")
-            console.log(html)
+            //console.log("html")
+            //console.log(html)
             const $ = cheerio.load(html)
             const articles = []
             const tCodes = {
