@@ -1,37 +1,27 @@
 {
-    "name": "Mitre T-Codes Helper",
-    "description": "Highlight multiple words in different groups in web pages.",
+    "manifest_version": 3,
+    "name": "Mitre T-Codes Highlighter and Helper",
+    "description": "Highlights and displays T-Codes found on page",
+    "version": "1.0",
     "icons": {
-      "16": "/images/Mitre ATT&CK logo 16p transparent.png",
-      "48": "/images/Mitre ATT&CK logo 48p transparent.png",
-      "128": "/images/Mitre ATT&CK logo 128p transparent.png"
-    },
-    "action": {
-      "default_icon": "/images/Mitre ATT&CK logo 16p transparent.png",
-      "default_popup": "index.html"
+        "16": "/images/Mitre ATT&CK logo 16p transparent.png",
+        "48": "/images/Mitre ATT&CK logo 48p transparent.png",
+        "128": "/images/Mitre ATT&CK logo 128p transparent.png"
     },
     "permissions": [
-      "tabs",
-      "storage"
+        "tabs",
+        "activeTab",
+        "scripting"
     ],
-    "content_scripts": [
-      {
-        "all_frames": true,
-        "js": [
-          "index.js"
-        ],
-        "run_at": "document_idle",
-        "matches": [
-          "<all_urls>"
-        ]
-      }
-    ],
-    "update_url": "https://clients2.google.com/service/update2/crx",
-    "manifest_version": 3,
-    "version": "0.1",
-    "content_security_policy": {},
+    "background": {
+        "service_worker": "background.js"
+    },
     "host_permissions": [
-      "http://*/*",
-      "https://*/*"
-    ]
-  }
+        "<all_urls>"
+    ],
+    "action": {
+        "default_icon": "/images/Mitre ATT&CK logo 48p transparent.png",
+        "default_popup": "popup.html"
+    },
+    "content_security_policy": {}
+}
