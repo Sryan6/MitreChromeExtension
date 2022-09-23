@@ -10,23 +10,46 @@ async function hello() {
         feedDisplay = document.querySelector('#texthere');
         console.log("data");
         console.log(data);
-        console.log("data.result");
-        console.log(data[0].result);
-        for (const frameResult of data){
-            console.log("data " + data.result);
+
+        //console.log("data[0].result");
+        //console.log(data[0].result);
+        if (typeof (data) == 'undefined') {
+            console.log("ERROR");
         }
-            
-        for(let i = 0; i < data[0].result.length; i++){
-            feedDisplay.insertAdjacentHTML("beforeend", data[0].result[i]);
-            feedDisplay.insertAdjacentHTML("beforeend", "<br />");
+        else {
+            if (typeof (data[0]) == 'undefined') {
+                console.log("ERROR2");
+            }
+            else {
+                if (typeof (data[0].result) == 'undefined') {
+                    console.log("ERROR3");
+                }
+                else {
+                    if (data[0].result == null) {
+                        console.log("ERROR4");
+                    }
+                    else {
+                        if (data[0].result.length == 0) {
+                            feedDisplay.insertAdjacentHTML("afterbegin", "No T-Codes found");
+                        }
+                        for (let i = 0; i < data[0].result.length; i++) {
+                            console.log("data.result");
+                            console.log(data[0].result);
+                            feedDisplay.insertAdjacentHTML("beforeend", data[0].result[i]);
+                            feedDisplay.insertAdjacentHTML("beforeend", "<br />");
+                        }
+                    }
+                }
+                //feedDisplay.insertAdjacentHTML("beforeend", data[0].result);
+            }
+
         }
-        //feedDisplay.insertAdjacentHTML("beforeend", data[0].result);
     });
 }
 
 document.getElementById('clickme').addEventListener('click', hello);
 
-function testFunction() {
+async function testFunction() {
     html = document.body.innerHTML;
     text = document.body.innerText;
     //alert('hello ' + document.location.href);
@@ -73,18 +96,30 @@ function testFunction() {
 
     // Declare variables
     var pos = 0;
-    var num = -1;
+    var num = 0;
     var i = -1;
-    newHTML = html
+    //newHTML = document.innerHTML;
+    newHTML = html;
+    sizeOfhtml = html.length;
 
-
-
+    console.log("newHTML.length");
+    console.log(newHTML.length);
     // Search the string and counts the number of e's
-    while (pos != -1) {
-        pos = newHTML.indexOf("automatically", i + 1);
-        //newHTML = newHTML.slice(0, pos) + "<span style='background-color: #FFFF00'>" + newHTML.slice(pos, pos + 13) + "</span>" + newHTML.slice(pos + 13);
-        num += 1;
-        i = pos;
+    for (let j = 0; j < tCodeKeys.length; j++) {
+        //for (let k = 0; k < sizeOfhtml; k++) {
+        while(pos != -1){
+            pos = html.indexOf(tCodeKeys[j], i + 1);
+            console.log(pos)
+            html = html.slice(0, pos) + "<span style='background-color: #FFFF00'>" + html.slice(pos, pos + tCodeKeys[j].length) + "</span>" + html.slice(pos + tCodeKeys[j].length);
+            
+            //k = k + tCodeKeys[j].length + 47;
+            num += 1;
+            i = pos;
+            i = i + tCodeKeys[j].length + 47;
+            if (pos == -1) {
+                break;
+            }
+        }
     }
     //console.log("newHTML");
     //console.log(newHTML);
@@ -97,6 +132,7 @@ function testFunction() {
     console.log("num");
     console.log(num);
 
-    document.body.style.backgroundColor = 'purple';
+    //document.body.style.backgroundColor = 'purple';
+    //document.write("<p>Test</p><strong>TEST</strong>")
     return tCodeList;
 }
